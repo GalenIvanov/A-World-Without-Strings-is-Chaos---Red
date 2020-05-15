@@ -1,7 +1,7 @@
 Red [
     Title: "A World Without Strings is Chaos - solutions in Red"
     Source: http://beyondloom.com/blog/strings.html
-	Author: "Galen Ivanov"
+    Author: "Galen Ivanov"
 ]
 
 f0: function [
@@ -9,16 +9,16 @@ f0: function [
     Characters are expensive, and the accountants tell me we can’t hand them out willy-nilly anymore.
     Given a string x and a character y, how many times does y occur in x?}
     str [string!]
-	chr [char!]
+    chr [char!]
 ][
     n: 0
-	parse str [
-	    any [
-		      chr (n: n + 1)
-	    	| skip
-		]
-	]
-	n
+    parse str [
+        any [
+              chr (n: n + 1)
+            | skip
+        ]
+    ]
+    n
 ]
 
 f1: function [
@@ -37,14 +37,14 @@ f2: function [
     str [string!]
 ][
     parse sort str [
-	    any [
-		    change [
-		        copy t skip
-     		    copy many-t any t
-			] (any [many-t/1 ""])
-		]
-	]
-	str
+        any [
+            change [
+                copy t skip
+                 copy many-t any t
+            ] (any [many-t/1 ""])
+        ]
+    ]
+    str
 ]
 
 f3: function [
@@ -53,7 +53,7 @@ f3: function [
     It’s far more Zen to organize words by their histograms!
     Given strings x and y, do both strings contain the same letters, possibly in a different order?}
     x [string!]
-	y [string!]
+    y [string!]
 ][
     (sort x) = sort y
 ]
@@ -65,19 +65,19 @@ f4: function [
     str [string!]
 ][
     charmap: make map! 256
-	
+    
     foreach c str [
-	    either k: select charmap c [
-		    charmap/:c: k + 1
+        either k: select charmap c [
+            charmap/:c: k + 1
         ][
-		    put charmap c 1
+            put charmap c 1
         ]
-	]
-	rejoin collect [
-	    foreach c str [
-	        if charmap/:c = 1 [keep c]
+    ]
+    rejoin collect [
+        foreach c str [
+            if charmap/:c = 1 [keep c]
         ]
-	]
+    ]
 ]
 
 f5: function [
@@ -89,13 +89,13 @@ f5: function [
     and the fourth falls off the cliff. Strings work the same way.
     Given strings x and y, is x a rotation of the characters in y?}
     x [string!]
-	y [string!]
+    y [string!]
 ][
     loop length? x [
-	    if x = y [return true]
-		move x tail x
-	]
-	false
+        if x = y [return true]
+        move x tail x
+    ]
+    false
 ]
 
 f6: function [
@@ -116,25 +116,25 @@ f7: function [
     Is it harder to find all such characters?}
     str [string!]
 ][
-	hist: make map! 128
-	foreach c str [
-	    either k: select hist c [
-		    hist/:c: k + 1
+    hist: make map! 128
+    foreach c str [
+        either k: select hist c [
+            hist/:c: k + 1
         ][
-		    put hist c 1
+            put hist c 1
         ]
-	]
-	;last sort/skip reverse to block! hist 2  ; uncomment to find the single most popular character
-	sorted: sort/skip reverse to block! hist 2
-	rev: tail sorted
-	mostpop: rev/-2
-	collect [
-	    until [
-		    keep rev/-1
-			rev: skip rev -2
-			rev/-2 < mostpop
-		]
-	]
+    ]
+    ;last sort/skip reverse to block! hist 2  ; uncomment to find the single most popular character
+    sorted: sort/skip reverse to block! hist 2
+    rev: tail sorted
+    mostpop: rev/-2
+    collect [
+        until [
+            keep rev/-1
+            rev: skip rev -2
+            rev/-2 < mostpop
+        ]
+    ]
 ]
 
 f8: function [
@@ -146,7 +146,7 @@ f8: function [
 ][
     str: split str space
     forall str [str/1: reverse str/1]
-	form str
+    form str
 ]
 
 f9: function [
@@ -155,11 +155,11 @@ f9: function [
     Given a string x and a boolean vector y of the same length,
     extract the characters of x corresponding to a 1 in y.}
     str [string!]
-	mask [block!]
+    mask [block!]
 ][
     i: 0
-	remove-each _ str[zero? mask/(i: i + 1)]
-	str
+    remove-each _ str[zero? mask/(i: i + 1)]
+    str
 ]
 
 f10: function [
@@ -168,15 +168,15 @@ f10: function [
     Given a string x and a boolean vector y, spread the characters of x
     to the positions of 1s in y, filling intervening characters with underscores.}
     str [string!]
-	mask [block!]
+    mask [block!]
 ][
     parse mask [
-	    any [
-			  change quote 0 "_"
-		    | change quote 1 (str/1) (str: next str)
-		]
-	]
-	rejoin mask
+        any [
+              change quote 0 "_"
+            | change quote 1 (str/1) (str: next str)
+        ]
+    ]
+    rejoin mask
 ]
 
 f11: function [
@@ -185,7 +185,7 @@ f11: function [
     Given a string x, replace all the vowels (a, e, i, o, u, or y) with underscores.}
     str [string!]
 ][
-	replace/all str charset "aeiouyAEIOUY" "_"
+    replace/all str charset "aeiouyAEIOUY" "_"
 ]
 
 f12: function [
@@ -200,24 +200,24 @@ f12: function [
 f13: function [
     {13 - TITLE REDACTED
     Given a string x consisting of words separated by spaces (as above),
-	and a string y, replace all words in x which are the same as y with a series of xes.}
-	str [string!]
-	word [string!]
+    and a string y, replace all words in x which are the same as y with a series of xes.}
+    str [string!]
+    word [string!]
 ][
     str: split str space
-	forall str [
-	    if str/1 = word [
-			parse str/1 [any change skip "X"]
-		]
-	]
-	form str
+    forall str [
+        if str/1 = word [
+            parse str/1 [any change skip "X"]
+        ]
+    ]
+    form str
 ]
 
 print "0 - Multiplicity"
 foreach [word char] [
     "fhqwhgads" #"h"
-	"mississippi" #"s"
-	"life" #"."
+    "mississippi" #"s"
+    "life" #"."
 ][
     print [word "," char "->" f0 word char] 
 ]
@@ -225,8 +225,8 @@ foreach [word char] [
 print "^/1 - Trapeze Part"
 foreach word [
     "racecar"
-	"wasitaratisaw"
-    "palindrome"	
+    "wasitaratisaw"
+    "palindrome"    
 ][print [word "->" f1 word]]
 
 print "^/2 - Duplicity"
@@ -264,7 +264,7 @@ print "^/7 - Popularity Contest"
 foreach word [
     "abdbbac"
     "CCCBBBAA"
-	"CCCBBBBAA"
+    "CCCBBBBAA"
 ][print [word "->" f7 word]]
 
 print "^/8 - esreveR A ecnetneS"
