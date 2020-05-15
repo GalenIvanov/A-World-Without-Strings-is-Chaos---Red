@@ -1,4 +1,4 @@
-# A-World-Without-Strings-is-Chaos---Red
+# A World Without Strings is Chaos - Red
 String exercises in Red
 
 I'm interested in array languages (APL/J/K/Nial...). While searching the Internet for resources on K, I stumbled upon some programming exercises on strings by John Earnest:
