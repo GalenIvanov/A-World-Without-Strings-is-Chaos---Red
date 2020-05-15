@@ -40,7 +40,7 @@ f2: function [
         any [
             change [
                 copy t skip
-                 copy many-t any t
+                copy many-t any t
             ] (any [many-t/1 ""])
         ]
     ]
